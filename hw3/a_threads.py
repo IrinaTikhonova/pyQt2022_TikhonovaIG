@@ -32,7 +32,7 @@ class SystemInfo(QtCore.QThread):
 
 
 class WeatherHandler(QtCore.QThread):
-    weatherInfoReceived = QtCore.Signal(list)
+    weatherInfoReceived = QtCore.Signal(dict)
     connectionError = QtCore.Signal(str)
 
     def __init__(self, lat=0, lon=0, parent=None):
