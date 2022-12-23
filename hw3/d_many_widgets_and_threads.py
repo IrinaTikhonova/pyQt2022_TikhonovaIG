@@ -72,10 +72,10 @@ class Window(QtWidgets.QWidget):
         self.Ui.lineEdit_3.setEnabled(True)
 
     def onWeatherInfoReceived(self, data):
-        latitude = str(data['latitude'])
-        longitude = str(data['longitude'])
-        temperature = str(data['current_weather']['temperature'])
-        windspeed = str(data['current_weather']['windspeed'])
+        latitude = data['latitude']
+        longitude = data['longitude']
+        temperature = data['current_weather']['temperature']
+        windspeed = data['current_weather']['windspeed']
 
         self.Ui.plainTextEdit.setPlainText(f"{time.ctime()}\n\n"
                                                f"широта: {latitude}, долгота: {longitude}\n\n"
