@@ -71,9 +71,9 @@ class WeatherHandler(QtCore.QThread):
                 self.weatherInfoReceived.emit(data)
                 time.sleep(self.__delay)
 
-            except requests.exceptions.ConnectionError as e:
+            except requests.exceptions.ConnectionError as connection_failure:
                 self.stop()
-                self.connectionError.emit(str(e.args[0].reason))
+                self.connectionError.emit(str(connection_failure.args[0].reason))
 
     def stop(self):
 

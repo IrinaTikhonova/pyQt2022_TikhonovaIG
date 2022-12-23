@@ -84,11 +84,11 @@ class Window(QtWidgets.QWidget):
 
     def closeEvent(self, event):
         self.sysInfo.deleteLater()
-        self.weather.stop()
+        self.weather.deleteLater()
         self.weather.quit()
 
-    def onConnectionError(self, e):
-        QtWidgets.QMessageBox.about(self, "Connection ERROR", f"Try again later\n{e}")
+    def onConnectionError(self, connection_failure):
+        QtWidgets.QMessageBox.about(self, "Connection ERROR", f"Try again later\n{connection_failure}")
         self.Ui.pushButton.setChecked(False)
 
 

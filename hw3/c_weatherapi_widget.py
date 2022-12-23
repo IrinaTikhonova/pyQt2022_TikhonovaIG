@@ -11,7 +11,7 @@
 """
 import time
 
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtWidgets
 
 from a_threads import WeatherHandler
 
@@ -25,7 +25,7 @@ class Window(QtWidgets.QWidget):
         self.ui = Ui_Weather()
         self.ui.setupUi(self)
         self.initSignals()
-        self.error_msg = f"Введены некорректные координаты"
+
 
     def initSignals(self):
         self.ui.pushButton.clicked.connect(self.onButtonPressed)
@@ -39,18 +39,19 @@ class Window(QtWidgets.QWidget):
             try:
                 lat = round(float(self.ui.lineEdit.text()), 2)
                 lon = round(float(self.ui.lineEdit_2.text()), 2)
-                if lat < -90 or lat > 90 or lon < -180 or lon > 180:
+                if lat not in range(-90, 91) or lon not in range(-180, 181):
                     raise ValueError
             except:
-                QtWidgets.QMessageBox.about(self, "ERROR", self.error_msg)
-                self.ui.plainTextEdit.setPlainText(self.error_msg)
+                self.ui.plainTextEdit.setPlainText("Введены некорректные координаты")
                 self.ui.pushButton.setChecked(False)
                 return
+
 
             delay = int(self.ui.lineEdit_3.text())
             self.weatherInfo.setApiUrl(lat, lon)
             self.weatherInfo.setDelay(delay)
             self.weatherInfo.start()
+
             self.ui.pushButton.setText("Stop")
             self.ui.lineEdit_3.setEnabled(False)
             self.ui.lineEdit.setEnabled(False)
@@ -81,11 +82,11 @@ class Window(QtWidgets.QWidget):
         self.weatherInfo = WeatherHandler()
 
     def closeEvent(self, event):
-        self.weatherInfo.stop()
+        self.weatherInfo.deleteLater()
         self.weatherInfo.quit()
 
-    def onConnectionError(self, e):
-        QtWidgets.QMessageBox.about(self, "Connection ERROR", f"Try again later\n{e}")
+    def onConnectionError(self, connection_failure):
+        QtWidgets.QMessageBox.about(self, "Connection ERROR", f"Try again later\n{connection_failure}")
         self.ui.pushButton.setChecked(False)
 
 
