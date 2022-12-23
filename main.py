@@ -21,6 +21,6 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication()
 
     window = Window()
-   # window.show()
+    window.show()
 
     app.exec()
