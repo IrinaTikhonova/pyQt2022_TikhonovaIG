@@ -81,6 +81,7 @@ class Ui_Weather(object):
 
         self.pushButton = QPushButton(Weather)
         self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setCheckable(True)
 
         self.horizontalLayout.addWidget(self.pushButton)
 

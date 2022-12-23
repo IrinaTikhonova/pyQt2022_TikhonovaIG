@@ -84,6 +84,7 @@ class Ui_Form(object):
 
         self.pushButton = QPushButton(Form)
         self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setCheckable(True)
 
         self.horizontalLayout.addWidget(self.pushButton)
 
